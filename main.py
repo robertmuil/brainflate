@@ -13,6 +13,7 @@ defsz = (960, 540) #(1920, 1080)
 delay_before_start = 30
 port = 22648
 fps = 30
+bitrate = '2000k'
 fnamepre = 'brainmovie'
 
 fnamepattern='%s%%07d.png' % (fnamepre)
@@ -47,9 +48,9 @@ print '...done'
 # then flatten from fidicial through inflated to flat
 animation = []
 if not dbg_mode:
-	for az,idx in zip([90,180,270],[0,0.5,1.0]):
+	for az,idx in zip([90,180,270],[0,1.0,2.0]):
 		animation.append({'state':'azimuth','idx':idx,'value':[az]})
-	for az,idx in zip([0,0.5,1.0],[1.0,2.0,4.0]):
+	for az,idx in zip([0,0.5,1.0],[2.0,3.0,4.0]):
 		animation.append({'state':'mix','idx':idx,'value':[az]})
 else:
 	for az,idx in zip([90,180,200],[0,0.1,0.2]):
@@ -69,15 +70,19 @@ sz=defsz
 print 'making animation with size %s...' %(str(sz))
 
 # Animate! (use default settings)
-js_client.makeMovie(animation, filename=fnamepattern, size=sz)
+js_client.makeMovie(animation, filename=fnamepattern, size=sz, fps=fps)
 print '...done'
 
 encoding_command = ['ffmpeg',
 	#'-s %dx%d'%(sz[0],sz[1]),
+	'-r',
+	'%d'%(fps),
 	'-i',
 	'%s'%(fnamepattern),
 	'-r',
 	'%d'%(fps),
+	'-b:v',
+	'%s'%(bitrate),
 	'%s.avi'%(fnamepre)]
 
 print 'converting to movie with ffmpeg...'
