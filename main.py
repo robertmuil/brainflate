@@ -48,9 +48,9 @@ print '...done'
 # then flatten from fidicial through inflated to flat
 animation = []
 if not dbg_mode:
-	for az,idx in zip([90,180,270],[0,1.0,2.0]):
+	for az,idx in zip([90,90,180,270],[0,1.0,2.0,3.0]):
 		animation.append({'state':'azimuth','idx':idx,'value':[az]})
-	for az,idx in zip([0,0.5,1.0],[2.0,3.0,4.0]):
+	for az,idx in zip([0,0.5,1.0,1.0],[3.0,4.0,5.0,6.0]):
 		animation.append({'state':'mix','idx':idx,'value':[az]})
 else:
 	for az,idx in zip([90,180,200],[0,0.1,0.2]):
