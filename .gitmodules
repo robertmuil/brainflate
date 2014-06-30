@@ -1,0 +1,3 @@
+[submodule "pycortex"]
+	path = pycortex
+	url = git@github.com:robertmuil/pycortex.git
